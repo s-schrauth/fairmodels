@@ -298,7 +298,7 @@ fairness_check <- function(x,
     statistical_parity_loss <- fairness_check_data$STP
     equal_oportunity_loss <- fairness_check_data$TPR
     predictive_parity_loss <- fairness_check_data$PPV
-    predictive_equality_loss <- fairness_check_data$FPR
+    false_positive_loss <- fairness_check_data$FPR
     accuracy_equality_loss <- fairness_check_data$ACC
 
     n_sub <- n_lvl - 1
@@ -309,7 +309,7 @@ fairness_check <- function(x,
     metric <- c(
       rep("Accuracy equality ratio    (TP + TN)/(TP + FP + TN + FN)", n_sub),
       rep("Predictive parity ratio     TP/(TP + FP)", n_sub),
-      rep("Predictive equality ratio   FP/(FP + TN)", n_sub),
+      rep("False positive ratio        FP/(FP + TN)", n_sub),
       rep("Equal opportunity ratio     TP/(TP + FN)", n_sub),
       rep("Statistical parity ratio   (TP + FP)/(TP + FP + TN + FN)", n_sub)
     )
@@ -317,7 +317,7 @@ fairness_check <- function(x,
     score <- c(
       unlist(accuracy_equality_loss),
       unlist(predictive_parity_loss),
-      unlist(predictive_equality_loss),
+      unlist(false_positive_loss),
       unlist(equal_oportunity_loss),
       unlist(statistical_parity_loss)
     )
