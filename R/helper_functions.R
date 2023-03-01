@@ -15,7 +15,7 @@ filter_fairness_check_metrics <- function(data, metrics, fairness_metrics) {
     ACC = "Accuracy equality ratio    (TP + TN)/(TP + FP + TN + FN)",
     TPR = "Equal opportunity ratio     TP/(TP + FN)",
     PPV = "Predictive parity ratio     TP/(TP + FP)",
-    FPR = "Predictive equality ratio   FP/(FP + TN)",
+    FPR = "False positive ratio        FP/(FP + TN)",
     STP = "Statistical parity ratio   (TP + FP)/(TP + FP + TN + FN)"
   )
 
