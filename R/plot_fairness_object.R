@@ -56,7 +56,7 @@
 #' plot(fobject, fairness_metrics = c("ACC", "TPR"))
 #' }
 #'
-plot.fairness_object <- function(x, ..., fairness_metrics = c("ACC", "TPR", "PPV", "FPR", "STP")) {
+plot.fairness_object <- function(x, ..., fairness_metrics = c("FPR", "FNR", "EO", "STP", "PPV", "ACC")) {
   n_exp <- length(x$explainers)
   data <- x$fairness_check_data
   metrics <- unique(data$metric)
