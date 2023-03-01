@@ -2,18 +2,18 @@
 
 
 fairness_check_metrics <- function() {
-  out <- c("ACC", "TPR", "PPV", "FPR", "FNR", "STP")
+  out <- c("ACC", "EO", "PPV", "FPR", "FNR", "STP")
   return(out)
 }
 
 filter_fairness_check_metrics <- function(data, metrics, fairness_metrics) {
   if (!all(fairness_metrics %in% fairness_check_metrics())) {
-    stop("User must provide metrics among: 'ACC', 'PPV', 'FPR', 'TPR', 'FNR', 'STP'")
+    stop("User must provide metrics among: 'ACC', 'PPV', 'FPR', 'EO', 'FNR', 'STP'")
   }
 
   metrics <- sapply(fairness_metrics, switch,
     ACC = "Accuracy equality ratio    (TP + TN)/(TP + FP + TN + FN)",
-    TPR = "Equal opportunity ratio     TP/(TP + FN)",
+    EO = "Equalized odds ratio        0.5 * (FPR + FNR)",
     PPV = "Predictive parity ratio     TP/(TP + FP)",
     FPR = "False positive ratio        FP/(FP + TN)",
     FNR = "False negative ratio        FN/(TP + FN)",
@@ -51,7 +51,7 @@ assert_performance_metrics <- function(metric) {
 }
 
 parity_loss_metrics <- function() {
-  return(c("TPR", "TNR", "PPV", "NPV", "FNR", "FPR", "FDR", "FOR", "TS", "STP", "ACC", "F1", "NEW_METRIC"))
+  return(c("TPR", "TNR", "PPV", "NPV", "FNR", "FPR", "FDR", "FOR", "TS", "STP", "ACC", "F1", "EO"))
 }
 
 assert_parity_metrics <- function(metric) {
