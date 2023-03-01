@@ -15,7 +15,7 @@ calculate_group_fairness_metrics <- function(x) {
 
   group_metric_matrix <- matrix(0, nrow = 13, ncol = length(x))
   colnames(group_metric_matrix) <- names(x)
-  rownames(group_metric_matrix) <- c("TPR", "TNR", "PPV", "NPV", "FNR", "FPR", "FDR", "FOR", "TS", "STP", "ACC", "F1", "NEW_METRIC")
+  rownames(group_metric_matrix) <- c("TPR", "TNR", "PPV", "NPV", "FNR", "FPR", "FDR", "FOR", "TS", "STP", "ACC", "F1", "EO")
 
   for (i in seq_along(x)) {
     subgroup_cm <- x[[i]]
@@ -34,7 +34,7 @@ calculate_group_fairness_metrics <- function(x) {
     FDR <- fp / (fp + tp)
     FOR <- fn / (fn + tn)
     TS <- tp / (tp + fn + fp)
-    NEW_METRIC <- TPR / FNR
+    EO <- 0.5 * (FNR + FPR)
     # accumulated metrics
     STP <- (tp + fp) / (tp + fp + tn + fn)
     ACC <- (tp + tn) / (tp + tn + fn + fp)
@@ -43,7 +43,7 @@ calculate_group_fairness_metrics <- function(x) {
     # m <- sqrt(tp+fp)*sqrt(tp+fn)*sqrt(tn+fp)*sqrt(tn+fn)
     # MCC <- (tp*tn - fp * fn)/m
 
-    group_metric_matrix[, i] <- c(TPR, TNR, PPV, NPV, FNR, FPR, FDR, FOR, TS, STP, ACC, F1, NEW_METRIC)
+    group_metric_matrix[, i] <- c(TPR, TNR, PPV, NPV, FNR, FPR, FDR, FOR, TS, STP, ACC, F1, EO)
   }
 
   # NA instead of NaN
